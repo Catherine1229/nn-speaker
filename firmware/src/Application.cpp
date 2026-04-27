@@ -16,7 +16,7 @@ Application::Application(I2SSampler *sample_provider, IntentProcessor *intent_pr
 
     m_speaker = speaker;
     m_indicator_light = indicator_light;
-    m_indicator_light->off();
+    m_indicator_light->setState(OFF);
 }
 
 void Application::run()
@@ -30,7 +30,7 @@ void Application::run()
         if (m_current_state == m_detect_wake_word_state)
         {
             // Wake word detected: LED ON immediately
-            m_indicator_light->on();
+            m_indicator_light->setState(ON);
 
             m_current_state = m_recognise_command_state;
             m_speaker->playOK();
@@ -38,7 +38,7 @@ void Application::run()
         else
         {
             // Recognition finished: LED OFF
-            m_indicator_light->off();
+            m_indicator_light->setState(OFF);
 
             m_current_state = m_detect_wake_word_state;
         }
